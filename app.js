@@ -1,4 +1,5 @@
 const hasMermaid = typeof mermaid !== "undefined" && mermaid?.run;
+
 if (hasMermaid){
   mermaid.initialize({
     startOnLoad: false,
@@ -33,8 +34,8 @@ const flowFiles = {
   commercial: { title: "Commercial non lockout flow", file: "commercial.mmd" }
 };
 
-let panzoomInstance = null;
 let activeFlowKey = null;
+let panzoomInstance = null;
 
 function destroyPanzoom(){
   if (panzoomInstance){
@@ -58,14 +59,7 @@ function setupPanzoom(){
 }
 
 async function renderMermaid(){
-  if (!hasMermaid){
-    diagramEl.textContent = "Mermaid failed to load. Check network or refresh.";
-    return;
-  }
-
-  // Mermaid marks elements as processed. Remove that so rerenders work reliably.
   diagramEl.removeAttribute("data-processed");
-
   try{
     await mermaid.run({ nodes: [diagramEl] });
   } catch (e){
@@ -73,17 +67,14 @@ async function renderMermaid(){
   }
 }
 
-async function loadFlow(key){
+async function loadFlow(key, push=true){
   activeFlowKey = key;
   const meta = flowFiles[key];
   titleEl.textContent = meta.title;
   fileHintEl.textContent = meta.file;
 
-  // Always bust cache on fetch
-  const cacheBust = Date.now().toString();
-  const url = meta.file + "?v=" + cacheBust;
+  const res = await fetch(meta.file + "?v=" + Date.now(), { cache: "no-store" });
 
-  const res = await fetch(url, { cache: "no-store" });
   if (!res.ok){
     diagramEl.textContent = "flowchart TD\nA[Missing diagram file] --> B[Make sure the .mmd file is in the repo root]";
   } else {
@@ -93,21 +84,39 @@ async function loadFlow(key){
   menu.classList.add("hidden");
   viewer.classList.remove("hidden");
 
+  if (push){
+    history.pushState({ flow: key }, "", "#"+key);
+  }
+
   await renderMermaid();
   setupPanzoom();
 }
 
-function showMenu(){
+function showMenu(push=true){
   destroyPanzoom();
   viewer.classList.add("hidden");
   menu.classList.remove("hidden");
+  activeFlowKey = null;
+
+  if (push){
+    history.pushState({ flow: null }, "", "#");
+  }
 }
+
+window.addEventListener("popstate", (event) => {
+  const state = event.state;
+  if (state && state.flow){
+    loadFlow(state.flow, false);
+  } else {
+    showMenu(false);
+  }
+});
 
 document.querySelectorAll("[data-flow]").forEach(btn => {
   btn.addEventListener("click", () => loadFlow(btn.getAttribute("data-flow")));
 });
 
-backBtn.addEventListener("click", showMenu);
+backBtn.addEventListener("click", () => showMenu());
 
 resetBtn.addEventListener("click", () => {
   if (!panzoomInstance) return;
@@ -115,13 +124,27 @@ resetBtn.addEventListener("click", () => {
   panzoomInstance.zoom(1, { animate: true });
 });
 
-reloadFlowBtn.addEventListener("click", () => {
-  if (!activeFlowKey) return;
-  loadFlow(activeFlowKey);
-});
+if (reloadFlowBtn){
+  reloadFlowBtn.addEventListener("click", () => {
+    if (!activeFlowKey) return;
+    loadFlow(activeFlowKey, false);
+  });
+}
 
-hardReloadBtn.addEventListener("click", () => {
-  const u = new URL(window.location.href);
-  u.searchParams.set("v", Date.now().toString());
-  window.location.replace(u.toString());
+if (hardReloadBtn){
+  hardReloadBtn.addEventListener("click", () => {
+    const u = new URL(window.location.href);
+    u.searchParams.set("v", Date.now().toString());
+    window.location.replace(u.toString());
+  });
+}
+
+// On first load, check hash
+window.addEventListener("DOMContentLoaded", () => {
+  const hash = window.location.hash.replace("#","");
+  if (hash && flowFiles[hash]){
+    loadFlow(hash, false);
+  } else {
+    history.replaceState({ flow: null }, "", "#");
+  }
 });
