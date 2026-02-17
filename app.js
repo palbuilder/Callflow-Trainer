@@ -21,11 +21,11 @@ const resetBtn = document.getElementById("resetZoom");
 const wrap = document.getElementById("diagramWrap");
 
 const flowFiles = {
-  lockout: { title: "Lockout call flow", file: "flows/lockout.mmd" },
-  jumpstart: { title: "Jumpstart call flow", file: "flows/jumpstart.mmd" },
-  residential: { title: "Residential non lockout flow", file: "flows/residential.mmd" },
-  auto: { title: "Auto locksmith non lockout flow", file: "flows/auto.mmd" },
-  commercial: { title: "Commercial non lockout flow", file: "flows/commercial.mmd" }
+  lockout: { title: "Lockout call flow", file: "lockout.mmd" },
+  jumpstart: { title: "Jumpstart call flow", file: "jumpstart.mmd" },
+  residential: { title: "Residential non lockout flow", file: "residential.mmd" },
+  auto: { title: "Auto locksmith non lockout flow", file: "auto.mmd" },
+  commercial: { title: "Commercial non lockout flow", file: "commercial.mmd" }
 };
 
 let panzoomInstance = null;
@@ -58,7 +58,7 @@ async function loadFlow(key){
 
   const res = await fetch(meta.file, { cache: "no-store" });
   if (!res.ok){
-    diagramEl.textContent = "flowchart TD\nA[Missing diagram file] --> B[Add the .mmd file in /flows]";
+    diagramEl.textContent = "flowchart TD\nA[Missing diagram file] --> B[Make sure the .mmd file is in the repo root]";
   } else {
     diagramEl.textContent = (await res.text()).trim();
   }
