@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>Pop A Lock Call Flows</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
@@ -16,6 +19,10 @@
         <div class="brandTitle">Call Flow Viewer</div>
         <div class="brandSub">Internal tool</div>
       </div>
+    </div>
+
+    <div class="topActions">
+      <button id="hardReload" class="btnPrimary" title="Forces a fresh load of the site">Clear cache and reload</button>
     </div>
   </header>
 
@@ -58,6 +65,7 @@
 
       <div class="diagramTools">
         <button id="resetZoom" class="btnGhost">Reset view</button>
+        <button id="reloadFlow" class="btnGhost">Reload diagram</button>
       </div>
 
       <div class="diagramWrap" id="diagramWrap">
