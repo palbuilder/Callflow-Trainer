@@ -1,2 +1,29 @@
 flowchart TD
-A[Coming soon]
+A[Incoming Call] --> B["Greeting: Thank you for calling Pop A Lock. How can I help you today?"]
+B --> C[Capture caller id and callback number, repeat callback]
+C --> D[Get customer name]
+D --> E[Collect service address]
+E --> F{Address available}
+F -->|Yes| G[Double click sub area]
+F -->|Unknown address| H[Search online for address]
+F -->|Refuses address| I["Select Augusta sub area<br/>Type: customer refused address<br/>Click GPS<br/>Select No<br/>Quote Augusta Main base price<br/>Explain price may increase"]
+G --> J["Click magnifying glass<br/>Verify address and assign zone"]
+H --> J
+I --> J
+
+J --> K[Select Auto Locksmith as service type]
+K --> L[Collect year, make, model, color]
+L --> M{Ignition type}
+M -->|Push to start| N[Continue]
+M -->|Key turns in ignition| O["Ask: did the same key work door and ignition or different keys?"]
+O --> N
+N --> P["Capture issue details in notes<br/>Lost keys, broken key, ignition issue"]
+P --> Q[Do not quote pricing]
+Q --> R["Tell customer: locksmith will review and call back with price"]
+R --> S[Repeat full summary]
+S --> T["Ask: how did you hear about us?"]
+T --> U[Add call]
+U --> V[Leave lead status as NONE]
+V --> W[Do not assign]
+W --> X[Do not schedule]
+X --> Y[End call]

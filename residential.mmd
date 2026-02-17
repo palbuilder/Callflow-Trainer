@@ -1,2 +1,48 @@
 flowchart TD
-A[Coming soon]
+A[Incoming Call] --> B["Greeting: Thank you for calling Pop A Lock. How can I help you today?"]
+B --> C[Capture caller id and callback number, repeat callback]
+C --> D[Get customer name]
+D --> E[Collect service address]
+E --> F{Address available}
+F -->|Yes| G[Double click sub area]
+F -->|Unknown address| H[Search online for address]
+F -->|Refuses address| I["Select Augusta sub area<br/>Type: customer refused address<br/>Click GPS<br/>Select No<br/>Quote Augusta Main base price<br/>Explain price may increase"]
+G --> J["Click magnifying glass<br/>Verify address and assign zone"]
+H --> J
+I --> J
+J --> K[Confirm this is residential non lockout]
+K --> L{Job type}
+L -->|Rekey| M[Rekey intake]
+L -->|Install customer supplied lock| N[Install intake]
+L -->|Other| O[Escalate to management]
+
+M --> M1["Ask: how many locks total?"]
+M1 --> M2["Ask: any locks use a key on the inside?"]
+M2 --> M3["Count cylinders<br/>Double sided deadbolt counts as 2"]
+M3 --> M4{Working key available for each lock?}
+M4 -->|Yes| M5["Quote: 15 per cylinder<br/>Plus service call by zone"]
+M4 -->|No| M6["Quote: 30 per cylinder<br/>Plus service call by zone"]
+M5 --> P[Proof required]
+M6 --> P
+
+N --> N1["Ask: how many locks are being installed?"]
+N1 --> N2{Lock type}
+N2 -->|Standard knob or deadbolt| N3["Quote install: 15 per lock<br/>Plus service call by zone"]
+N2 -->|Electronic lock| N4["Quote install: 60 per lock<br/>Plus service call by zone"]
+N2 -->|Handleset or complex| N5[Escalate to management]
+N3 --> P
+N4 --> P
+N5 --> O
+
+P --> P1["Inform: proof of residency or ownership required at service"]
+P1 --> Q[Repeat full summary]
+Q --> R["Ask: how did you hear about us?"]
+R --> S[Add call]
+S --> T[Leave lead status as NONE]
+T --> U[Do not assign]
+U --> V[Do not schedule]
+V --> W[End call]
+
+J --> SC[Service call pricing by zone]
+SC --> SC1["Augusta Main: 80<br/>Secondary: 100<br/>Third layer: 120<br/>Aiken: 140"]
+SC1 --> K

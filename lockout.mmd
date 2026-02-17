@@ -17,38 +17,51 @@ L --> N[Confirm service type]
 M --> N
 N --> O{Service requested?}
 O -->|Auto lockout| P[Auto lockout flow]
-O -->|Home| Z1[Home service branch]
-O -->|Business| Z2[Business service branch]
+O -->|Home lockout| P2[Home lockout flow]
+O -->|Business lockout| P3[Business lockout flow]
+
 P --> Q["Ask: is anyone trapped inside vehicle?"]
 Q --> R{Child trapped?}
-R -->|Yes| S["Select car door unlocking<br/>Go to Discounts tab<br/>Select EDU<br/>Confirm price equals 0<br/>Add call<br/>Notify management immediately"]
-R -->|No| T[Continue standard auto lockout]
+R -->|Yes| S["Discounts tab<br/>Select EDU<br/>Confirm total equals 0<br/>Add call<br/>Notify management immediately"]
+R -->|No| T[Continue]
+
 T --> U[Add vehicle year]
-U --> V[Select manufacturer from dropdown]
-V --> W[Select model from dropdown]
-W --> X[Add vehicle color]
+U --> V[Select make]
+V --> W[Select model]
+W --> X[Select color]
 X --> Y[Ask key location]
 Y --> Y1{Keys in trunk?}
-Y1 -->|Yes| Y2["Select trunk<br/>Inform: we guarantee cabin access only<br/>Trunk access may require extra service"]
+Y1 -->|Yes| Y2["Select trunk<br/>Inform: cabin access only<br/>Trunk access may require extra service"]
 Y1 -->|Cabin| Y3[Select cabin]
-Y2 --> AA[Quote total price and ETA]
+Y2 --> AA[Quote total price and ETA from Pulsar]
 Y3 --> AA
-AA --> AB["Inform: tech will call or text when on the way"]
-AB --> AC[Request driver license ready]
-AC --> AD["Confirm payment methods: cash, card, Cash App"]
-AD --> AE["Ask for locating details<br/>Gate code, parking row, clothing, landmarks"]
-AE --> AF[Proceed to closing]
-AF --> AG[Repeat full service summary]
-AG --> AH["Ask: how did you hear about us?"]
-AH --> AI[Click Add Call]
-AI --> AJ[Leave lead status equals NONE]
-AJ --> AK[Do not assign]
-AK --> AL[Do not schedule]
-AL --> AM[End call]
-AA --> PF{Customer hesitates on price?}
+
+AA --> AB["Inform: call or text when tech is on the way"]
+AB --> AC[Driver license required]
+AC --> AD["Payment: cash, card, Cash App"]
+AD --> AE["Ask locating details<br/>Gate code, row, landmarks"]
+AE --> AF[Repeat full summary]
+AF --> AG["Ask: how did you hear about us?"]
+AG --> AH[Add call]
+AH --> AI[Leave lead status as NONE]
+AI --> AJ[Do not assign]
+AJ --> AK[Do not schedule]
+AK --> AL[End call]
+
+AA --> PF{Price hesitation}
 PF -->|Military| PF1[Offer 10 percent military discount with valid ID]
-PF -->|General hesitation| PF2[May reduce up to 10 dollars to secure booking]
-PF -->|Needs more than 10| PF3[Escalate to management]
+PF -->|General| PF2[May reduce up to 10 dollars to secure booking]
+PF -->|More| PF3[Escalate to management]
 PF1 --> AB
 PF2 --> AB
 PF3 --> AB
+
+P2 --> HL1[Collect address and verify zone]
+HL1 --> HL2[No year make model needed]
+HL2 --> HL3[Quote total price and ETA from Pulsar]
+HL3 --> AB
+
+P3 --> BL1[Collect business name and address]
+BL1 --> BL2[Verify zone]
+BL2 --> BL3[Quote total price and ETA from Pulsar]
+BL3 --> AB

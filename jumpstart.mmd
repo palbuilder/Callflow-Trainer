@@ -1,2 +1,25 @@
 flowchart TD
-A[Coming soon]
+A[Incoming Call] --> B["Greeting: Thank you for calling Pop A Lock. How can I help you today?"]
+B --> C[Capture caller id and callback number, repeat callback]
+C --> D[Get customer name]
+D --> E[Collect service address]
+E --> F{Address available}
+F -->|Yes| G[Double click sub area]
+F -->|At business, unknown address| H[Search online for address]
+F -->|Refuses address| I["Select Augusta sub area<br/>Type: customer refused address<br/>Click GPS<br/>Select No<br/>Quote Augusta Main base price<br/>Explain price may increase"]
+G --> J["Click magnifying glass<br/>Verify address and assign zone"]
+H --> J
+I --> J
+J --> K[Select Jumpstart as service type]
+K --> L[Enter year, make, model, color if available]
+L --> M[Quote Pulsar price and ETA]
+M --> N["Inform: call or text when tech is on the way"]
+N --> O["Payment: cash, card, Cash App"]
+O --> P["Ask locating details<br/>Gate code, row, landmarks"]
+P --> Q[Repeat full summary]
+Q --> R["Ask: how did you hear about us?"]
+R --> S[Add call]
+S --> T[Leave lead status as NONE]
+T --> U[Do not assign]
+U --> V[Do not schedule]
+V --> W[End call]

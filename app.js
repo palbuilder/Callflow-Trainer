@@ -23,9 +23,9 @@ const wrap = document.getElementById("diagramWrap");
 const flowFiles = {
   lockout: { title: "Lockout call flow", file: "flows/lockout.mmd" },
   jumpstart: { title: "Jumpstart call flow", file: "flows/jumpstart.mmd" },
-  residential: { title: "Residential call flow", file: "flows/residential.mmd" },
-  auto: { title: "Auto call flow", file: "flows/auto.mmd" },
-  commercial: { title: "Commercial call flow", file: "flows/commercial.mmd" }
+  residential: { title: "Residential non lockout flow", file: "flows/residential.mmd" },
+  auto: { title: "Auto locksmith non lockout flow", file: "flows/auto.mmd" },
+  commercial: { title: "Commercial non lockout flow", file: "flows/commercial.mmd" }
 };
 
 let panzoomInstance = null;
