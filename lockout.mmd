@@ -1,0 +1,54 @@
+flowchart TD
+A[Incoming Call] --> B["Greeting: Thank you for calling Pop A Lock. How can I help you today?"]
+B --> C[Confirm and repeat callback number]
+C --> D[Collect first and last name]
+D --> E[Collect service street address]
+E --> F{Customer knows address?}
+F -->|Yes| G[Double click service area from dropdown]
+F -->|At business, unknown address| H[Use Google to locate correct address]
+F -->|Refuses address| I["Select Augusta sub area<br/>Type: customer refused address<br/>Click GPS<br/>Select No<br/>Quote Augusta Main base price<br/>Explain price may increase"]
+G --> J["Click magnifying glass<br/>Verify address and assign zone"]
+H --> J
+I --> J
+J --> K{Home or business?}
+K -->|Home| L[Continue]
+K -->|Business| M["Collect business name<br/>Add to call"]
+L --> N[Confirm service type]
+M --> N
+N --> O{Service requested?}
+O -->|Auto lockout| P[Auto lockout flow]
+O -->|Home| Z1[Home service branch]
+O -->|Business| Z2[Business service branch]
+P --> Q["Ask: is anyone trapped inside vehicle?"]
+Q --> R{Child trapped?}
+R -->|Yes| S["Select car door unlocking<br/>Go to Discounts tab<br/>Select EDU<br/>Confirm price equals 0<br/>Add call<br/>Notify management immediately"]
+R -->|No| T[Continue standard auto lockout]
+T --> U[Add vehicle year]
+U --> V[Select manufacturer from dropdown]
+V --> W[Select model from dropdown]
+W --> X[Add vehicle color]
+X --> Y[Ask key location]
+Y --> Y1{Keys in trunk?}
+Y1 -->|Yes| Y2["Select trunk<br/>Inform: we guarantee cabin access only<br/>Trunk access may require extra service"]
+Y1 -->|Cabin| Y3[Select cabin]
+Y2 --> AA[Quote total price and ETA]
+Y3 --> AA
+AA --> AB["Inform: tech will call or text when on the way"]
+AB --> AC[Request driver license ready]
+AC --> AD["Confirm payment methods: cash, card, Cash App"]
+AD --> AE["Ask for locating details<br/>Gate code, parking row, clothing, landmarks"]
+AE --> AF[Proceed to closing]
+AF --> AG[Repeat full service summary]
+AG --> AH["Ask: how did you hear about us?"]
+AH --> AI[Click Add Call]
+AI --> AJ[Leave lead status equals NONE]
+AJ --> AK[Do not assign]
+AK --> AL[Do not schedule]
+AL --> AM[End call]
+AA --> PF{Customer hesitates on price?}
+PF -->|Military| PF1[Offer 10 percent military discount with valid ID]
+PF -->|General hesitation| PF2[May reduce up to 10 dollars to secure booking]
+PF -->|Needs more than 10| PF3[Escalate to management]
+PF1 --> AB
+PF2 --> AB
+PF3 --> AB

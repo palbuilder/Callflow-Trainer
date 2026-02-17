@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pop A Lock Call Flows</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img class="brandLogo" src="assets/logo.svg" alt="Pop A Lock" />
+      <div class="brandText">
+        <div class="brandTitle">Call Flow Viewer</div>
+        <div class="brandSub">Internal tool</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section id="menu" class="card">
+      <h1 class="h1">Choose a call flow</h1>
+      <p class="p">Select a call type to view the workflow diagram.</p>
+      <div class="grid">
+        <button class="tile" data-flow="lockout">
+          <div class="tileTitle">Lockout</div>
+          <div class="tileSub">Car, home, business lockouts</div>
+        </button>
+        <button class="tile" data-flow="jumpstart">
+          <div class="tileTitle">Jumpstart</div>
+          <div class="tileSub">Dead battery assist</div>
+        </button>
+        <button class="tile" data-flow="residential">
+          <div class="tileTitle">Residential</div>
+          <div class="tileSub">Rekey, installs, non lockout</div>
+        </button>
+        <button class="tile" data-flow="auto">
+          <div class="tileTitle">Auto</div>
+          <div class="tileSub">Keys, ignition, non lockout</div>
+        </button>
+        <button class="tile" data-flow="commercial">
+          <div class="tileTitle">Commercial</div>
+          <div class="tileSub">Business service, non lockout</div>
+        </button>
+      </div>
+    </section>
+
+    <section id="viewer" class="card hidden">
+      <div class="row">
+        <button id="back" class="btnSecondary">Back</button>
+        <div class="viewerTitleWrap">
+          <div id="title" class="h2"></div>
+          <div id="filehint" class="muted"></div>
+        </div>
+      </div>
+
+      <div class="diagramTools">
+        <button id="resetZoom" class="btnGhost">Reset view</button>
+      </div>
+
+      <div class="diagramWrap" id="diagramWrap">
+        <pre id="diagram" class="mermaid"></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="muted">Pop A Lock internal training</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

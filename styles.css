@@ -1,0 +1,130 @@
+:root{
+  --accent:#ec5628;
+  --bg:#ffffff;
+  --card:#ffffff;
+  --text:#111111;
+  --muted:#5b5b66;
+  --border:rgba(17,17,17,0.10);
+  --shadow:0 10px 30px rgba(0,0,0,0.10);
+  --radius:18px;
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0b0b0f;
+    --card:#12121a;
+    --text:#f2f2f4;
+    --muted:#b8b8c6;
+    --border:rgba(242,242,244,0.12);
+    --shadow:0 10px 30px rgba(0,0,0,0.45);
+  }
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:10;
+  padding:16px 18px;
+  border-bottom:1px solid var(--border);
+  background:color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter:saturate(1.2) blur(10px);
+}
+
+.brand{display:flex; align-items:center; gap:12px}
+.brandLogo{height:42px; width:auto}
+.brandText{display:flex; flex-direction:column}
+.brandTitle{font-weight:800; letter-spacing:0.2px}
+.brandSub{font-size:12px; color:var(--muted); margin-top:2px}
+
+.main{max-width:1100px; margin:0 auto; padding:18px}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px;
+  box-shadow:var(--shadow);
+}
+
+.h1{margin:0 0 8px 0; font-size:22px; font-weight:900}
+.h2{font-size:16px; font-weight:900}
+.p{margin:0 0 14px 0; color:var(--muted)}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:12px;
+}
+
+.tile{
+  text-align:left;
+  padding:14px 14px;
+  border-radius:16px;
+  border:1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
+  background:color-mix(in srgb, var(--card) 92%, var(--accent) 8%);
+  cursor:pointer;
+  color:var(--text);
+  transition:transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+}
+
+.tile:hover{
+  transform:translateY(-1px);
+  box-shadow:0 14px 34px rgba(0,0,0,0.14);
+  border-color:color-mix(in srgb, var(--accent) 75%, var(--border));
+}
+
+.tileTitle{font-weight:900}
+.tileSub{margin-top:6px; font-size:12px; color:var(--muted)}
+
+.row{display:flex; align-items:flex-start; gap:12px; margin-bottom:10px}
+.viewerTitleWrap{display:flex; flex-direction:column; gap:2px}
+.muted{font-size:12px; color:var(--muted)}
+
+.btnSecondary{
+  border:1px solid var(--border);
+  background:transparent;
+  color:var(--text);
+  padding:10px 12px;
+  border-radius:14px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.btnGhost{
+  border:1px solid var(--border);
+  background:transparent;
+  color:var(--text);
+  padding:8px 10px;
+  border-radius:14px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.diagramTools{display:flex; justify-content:flex-end; margin:6px 0 10px 0}
+
+.hidden{display:none}
+
+.diagramWrap{
+  overflow:auto;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:color-mix(in srgb, var(--bg) 90%, transparent);
+  padding:12px;
+  min-height:60vh;
+}
+
+/* Mermaid SVG should not exceed wrap width */
+.diagramWrap svg{max-width:100%; height:auto}
+
+.footer{
+  padding:14px 18px;
+  border-top:1px solid var(--border);
+  color:var(--muted);
+}
